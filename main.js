@@ -71,40 +71,63 @@ di esempio presente nell’html, stampiamo i post del nostro feed. */
 
 const hookHtml = document.querySelector(".hook");
 
+const likeNumber = [];
+
 // ciclo for per la stama dei post
 
 for (let i = 0; i < socialFeed.length; i++) {
   const postElement = socialFeed[i];
 
+  likeNumber[i] = postElement.likesCounter;
+
   hookHtml.innerHTML += `
-    <div class="post">
-    <div class="post__header">
-        <div class="post-meta">                    
-            <div class="post-meta__icon">
-                <img class="profile-pic" src="${postElement.authorPhoto}" alt="Phil Mangione">                    
+        <div class="post">
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${postElement.authorPhoto}" alt="Phil Mangione">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${postElement.author}</div>
+                    <div class="post-meta__time">${postElement.date}</div>
+                </div>                    
             </div>
-            <div class="post-meta__data">
-                <div class="post-meta__author">${postElement.author}</div>
-                <div class="post-meta__time">${postElement.date}</div>
-            </div>                    
         </div>
-    </div>
-    <div class="post__text">${postElement.text}</div>
-    <div class="post__image">
-        <img src="${postElement.image}" alt="">
-    </div>
-    <div class="post__footer">
-        <div class="likes js-likes">
-            <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
-                    <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                    <span class="like-button__label">Mi Piace</span>
-                </a>
-            </div>
-            <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${postElement.likesCounter}</b> persone
-            </div>
-        </div> 
-    </div>            
-</div>`;
+        <div class="post__text">${postElement.text}</div>
+        <div class="post__image">
+            <img src="${postElement.image}" alt="">
+        </div>
+        <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button  js-like-button" href="javascript:void(0)" data-postid="1">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-${postElement.postNumber}" class="js-likes-counter">${postElement.likesCounter}</b> persone
+                </div>
+            </div> 
+        </div>            
+    </div>`;
+}
+
+/* Milestone 3
+Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. */
+
+const likeButton = document.querySelectorAll(".js-like-button");
+
+const arrayLikes = [];
+
+for (let i = 0; i < likeButton.length; i++) {
+  likeButton[i].addEventListener("click", function () {
+    const likesCounter = document.getElementById(
+      `like-counter-${socialFeed[i].postNumber}`
+    );
+    likeButton[i].classList.add("like-color");
+    likeNumber[i]++;
+    likesCounter.innerHTML = likeNumber[i];
+  });
 }

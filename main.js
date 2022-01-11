@@ -22,6 +22,7 @@ const socialfeed = [
     date: "12-20-2021",
     text: "The return of Eddie la raza",
     image: "img-1.jpg",
+    likesCounter: 2000,
   },
   {
     postNumber: 2,
@@ -29,6 +30,7 @@ const socialfeed = [
     date: "06-10-2021",
     text: "Today it was the day",
     image: "img-2.jpg",
+    likesCounter: 100,
   },
   {
     postNumber: 3,
@@ -36,6 +38,7 @@ const socialfeed = [
     date: "02-01-2020",
     text: "The return of Eddie la raza",
     image: "img-3.jpg",
+    likesCounter: 190,
   },
   {
     postNumber: 4,
@@ -43,6 +46,7 @@ const socialfeed = [
     date: "12-20-2021",
     text: "I'm the legend killer",
     image: "img-4.jpg",
+    likesCounter: 260,
   },
   {
     postNumber: 5,
@@ -50,5 +54,6 @@ const socialfeed = [
     date: "08-25-2020",
     text: "Well its the Big Show!",
     image: "img-5.jpg",
+    likesCounter: 870,
   },
 ];

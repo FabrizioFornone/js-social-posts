@@ -41,7 +41,7 @@ const socialFeed = [
     author: "Kurt Angle",
     authorPhoto: "https://unsplash.it/300/300?image=30",
     date: "02-01-2020",
-    text: "The return of Eddie la raza",
+    text: "Angle lock!",
     image: "https://unsplash.it/600/300?image=12",
     likesCounter: 190,
   },
@@ -69,48 +69,54 @@ const socialFeed = [
 Prendendo come riferimento il layout
 di esempio presente nell’html, stampiamo i post del nostro feed. */
 
+// funzione per il template
+
+function createTemplateHtml(post) {
+  return `
+  <div class="post">
+  <div class="post__header">
+      <div class="post-meta">                    
+          <div class="post-meta__icon">
+              <img class="profile-pic" src="${post.authorPhoto}" alt="Phil Mangione">                    
+          </div>
+          <div class="post-meta__data">
+              <div class="post-meta__author">${post.author}</div>
+              <div class="post-meta__time">${post.date}</div>
+          </div>                    
+      </div>
+  </div>
+  <div class="post__text">${post.text}</div>
+  <div class="post__image">
+      <img src="${post.image}" alt="">
+  </div>
+  <div class="post__footer">
+      <div class="likes js-likes">
+          <div class="likes__cta">
+              <a class="like-button  js-like-button" href="javascript:void(0)" data-postid="1">
+                  <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                  <span class="like-button__label">Mi Piace</span>
+              </a>
+          </div>
+          <div class="likes__counter">
+              Piace a <b id="like-counter-${post.postNumber}" class="js-likes-counter">${post.likesCounter}</b> persone
+          </div>
+      </div> 
+  </div>            
+</div>`;
+}
+
 const hookHtml = document.querySelector(".hook");
 
 const likeNumber = [];
 
-// ciclo for per la stama dei post
+// ciclo for per la stampa dei post
 
 for (let i = 0; i < socialFeed.length; i++) {
   const postElement = socialFeed[i];
 
   likeNumber[i] = postElement.likesCounter;
-
-  hookHtml.innerHTML += `
-        <div class="post">
-        <div class="post__header">
-            <div class="post-meta">                    
-                <div class="post-meta__icon">
-                    <img class="profile-pic" src="${postElement.authorPhoto}" alt="Phil Mangione">                    
-                </div>
-                <div class="post-meta__data">
-                    <div class="post-meta__author">${postElement.author}</div>
-                    <div class="post-meta__time">${postElement.date}</div>
-                </div>                    
-            </div>
-        </div>
-        <div class="post__text">${postElement.text}</div>
-        <div class="post__image">
-            <img src="${postElement.image}" alt="">
-        </div>
-        <div class="post__footer">
-            <div class="likes js-likes">
-                <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="javascript:void(0)" data-postid="1">
-                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                        <span class="like-button__label">Mi Piace</span>
-                    </a>
-                </div>
-                <div class="likes__counter">
-                    Piace a <b id="like-counter-${postElement.postNumber}" class="js-likes-counter">${postElement.likesCounter}</b> persone
-                </div>
-            </div> 
-        </div>            
-    </div>`;
+  // eseguo la funzione e stampo in Html
+  hookHtml.innerHTML += createTemplateHtml(postElement);
 }
 
 /* Milestone 3

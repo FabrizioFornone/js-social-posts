@@ -92,7 +92,7 @@ function createTemplateHtml(post) {
   <div class="post__footer">
       <div class="likes js-likes">
           <div class="likes__cta">
-              <a class="like-button  js-like-button" href="javascript:void(0)" data-postid="1">
+              <a class="like-button  js-like-button" href="#" data-postid="1">
                   <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                   <span class="like-button__label">Mi Piace</span>
               </a>
@@ -128,11 +128,12 @@ const likeButton = document.querySelectorAll(".js-like-button");
 const arrayLikes = [];
 
 for (let i = 0; i < likeButton.length; i++) {
-  likeButton[i].addEventListener("click", function () {
+  likeButton[i].addEventListener("click", function (event) {
+    event.preventDefault();
     const likesCounter = document.getElementById(
       `like-counter-${socialFeed[i].postNumber}`
     );
-    likeButton[i].classList.add("like-color");
+    likeButton[i].classList.add("like-button--liked");
     likeNumber[i]++;
     likesCounter.innerHTML = likeNumber[i];
   });
